@@ -16,6 +16,18 @@ class Node {
 			children[i] = NULL;
 	}
 
+	Node* getChild(int child) {
+		return children[child];
+	}
+
+	Node* getParent() {
+		return parent;
+	}
+
+	int getValue(int value) {
+		return values[value];
+	}
+
 	bool isLeaf() {
 		return (children[0] == NULL);
 	}

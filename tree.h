@@ -31,11 +31,21 @@ class Tree {
 	}
 
 	bool insert(int valToAdd) {
-		Node* insertNode = new Node(valToAdd);
-		return false;
+		Node* node = new Node(valToAdd);
+		Node* searchNode = root->getChild(0);
+		if (searchNode->getChild(0) == NULL) {
+			node->setParent(searchNode);
+			searchNode->setChild(node, 0);
+		} else {
+			searchNode = search(searchNode, valToAdd);
+			if (searchNode == NULL)
+				return false;
+			searchNode->absorb(new Node(valToAdd), valToAdd);
+		}
+		return true;
 	}
 
-	bool delete(int valToKill) {
+	bool Delete(int valToKill) {
 		return false;
 	}
 

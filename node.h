@@ -28,6 +28,14 @@ class Node {
 		return values[value];
 	}
 
+	void setChild(Node* child, int num) {
+		children[num] = child;
+	}
+
+	void setParent(Node* newParent) {
+		parent = newParent;
+	}
+
 	bool isLeaf() {
 		return (children[0] == NULL);
 	}
@@ -138,7 +146,7 @@ class Node {
                 newNode->children[0] = this;
                 parent = newNode;
             }
-		parent->absorb↔(splitNode, splitSmallest);
+		parent->absorb(splitNode, splitSmallest);
 		}
 	}
 };

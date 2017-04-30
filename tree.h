@@ -7,8 +7,6 @@ using namespace std;
 class Tree {
     private:
         Node *root;
-
-        // Find the appropriate operation point TwoThree
         Node* findSpot(Node *node, int data) {
             if (node == NULL) return NULL;
 
@@ -27,7 +25,6 @@ class Tree {
             return node->parent;
         }
 
-        // Recursively print the subtree starting from the given node
         void print(Node *node, int tabs = 0) {
             for (int i = 0; i < tabs; ++i) {
                 cout << "\t";
@@ -50,20 +47,17 @@ class Tree {
         }
 
     public:
-        // Constructor
         Tree() {
             root = new Node();
             root->children[0] = new Node();
             root->children[0]->parent = root;
         }
 
-        // Insert
         bool insert(int data) {
             Node *newNode = new Node(data);
             Node *spot = root->children[0];
 
             if (spot->children[0] == NULL) {
-                // First insertion
                 newNode->parent = spot;
                 spot->children[0] = newNode;
             }
@@ -77,7 +71,6 @@ class Tree {
             return true;
         }
 
-        // Print child[
         void print() {
             print(root->children[0]);
             cout << endl;

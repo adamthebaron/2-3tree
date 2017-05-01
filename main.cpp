@@ -17,7 +17,6 @@ int main(int argc, char **argv) {
         if (!infile.eof())
             tree.insert(x);
     }
-	tree.print();
     infile.close();
 
     return 0;

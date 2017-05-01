@@ -7,43 +7,23 @@ using namespace std;
 class Tree {
     private:
         Node *root;
-        Node* findSpot(Node *node, int data) {
-            if (node == NULL) return NULL;
-
+        Node* search(Node *node, int valToFind) {
+            if (node == NULL) 
+				return NULL;
             while (!node->isLeaf()) {
-                if (node->values[0] == data || node->values[1] == data)
+                if (node->values[0] == valToFind || node->values[1] == valToFind)
                     return NULL;
-                if (node->values[0] == -1 || data < node->values[0])
+                if (node->values[0] == -1 || valToFind < node->values[0])
                     node = node->children[0];
-                else if (node->values[1] == -1 || data < node->values[1])
+                else if (node->values[1] == -1 || valToFind < node->values[1])
                     node = node->children[1];
                 else
                     node = node->children[2];
             }
 
-            if (node->values[0] == data) return NULL;
+            if (node->values[0] == valToFind) 
+				return NULL;
             return node->parent;
-        }
-
-        void print(Node *node, int tabs = 0) {
-            for (int i = 0; i < tabs; ++i) {
-                cout << "\t";
-            }
-
-            if (node == NULL) {
-                cout << "`--> NULL" << endl;
-                return;
-            }
-
-            cout << "`--> " << node->sibNumber()
-                 << ": ( " << node->values[0] << ", " << node->values[1] << ")" << endl;
-
-            if (!node->isLeaf()) {
-                ++tabs;
-                print(node->children[0], tabs);
-                print(node->children[1], tabs);
-                print(node->children[2], tabs);
-            }
         }
 
     public:
@@ -53,26 +33,22 @@ class Tree {
             root->children[0]->parent = root;
         }
 
-        bool insert(int data) {
-            Node *newNode = new Node(data);
-            Node *spot = root->children[0];
+        bool insert(int valToAdd) {
+            Node *newNode = new Node(valToAdd);
+            Node *searchNode = root->children[0];
 
-            if (spot->children[0] == NULL) {
-                newNode->parent = spot;
-                spot->children[0] = newNode;
+            if (searchNode->children[0] == NULL) {
+                newNode->parent = searchNode;
+                searchNode->children[0] = newNode;
             }
             else {
-                spot = findSpot(spot, data);
-                if (spot == NULL) return false;
+                searchNode = search(searchNode, valToAdd);
+                if (searchNode == NULL) 
+					return false;
             
-                spot->insert(new Node(data), data);
+                searchNode->insert(new Node(valToAdd), valToAdd);
             }
 
             return true;
-        }
-
-        void print() {
-            print(root->children[0]);
-            cout << endl;
         }
 };
